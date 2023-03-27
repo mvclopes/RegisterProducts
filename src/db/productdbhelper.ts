@@ -2,8 +2,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 
 async function saveProduct(productName: string) {
     try {
-        
-        let key: string = new Date().getTime() + productName 
+        let key: string = new Date().getTime() + "-" + productName.replace(/\s/g, '') 
         await AsyncStorage.setItem(key, productName);
     } catch (error) {
         console.error(`Failed to save product ${productName} - error: ${error}`);
