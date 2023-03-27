@@ -3,6 +3,7 @@ import React from "react";
 import { Button, StyleSheet, Text, View } from "react-native";
 import * as Yup from 'yup';
 import CustomTextInput from "../../components/CustomTextInput";
+import { ProductDatabaseHelper } from "../../db/productdbhelper";
 
 const initialValues = {
     productName: '',
@@ -23,7 +24,10 @@ export default function Register({isUpdatingProduct}: RegisterProps) {
     return(
         <Formik
             initialValues={{productName: initialValues.productName}}
-            onSubmit={(values) => console.log(`values: ${JSON.stringify(values)}`) }
+            onSubmit={(values) => {
+                console.log(`values: ${JSON.stringify(values)}`);
+                ProductDatabaseHelper.saveProduct(values.productName);
+            }}
             validationSchema={RegisterSchema}
         >
             {({ handleChange, handleBlur, handleSubmit, values, errors }) => (
