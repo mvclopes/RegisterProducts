@@ -4,6 +4,7 @@ import { createStackNavigator, StackNavigationProp } from '@react-navigation/sta
 
 // Screens
 import Register from '../screens/Register';
+import ProductList from '../screens/ProductList';
 
 // Definição das rotas possíves
 type RootStackParamList = {
@@ -11,7 +12,8 @@ type RootStackParamList = {
     Register: undefined
 };
 
-export type RegisterProps = StackNavigationProp<RootStackParamList, 'Register'>
+export type RegisterNavigationProps = StackNavigationProp<RootStackParamList, 'Register'>
+export type ListingNavigationProps = StackNavigationProp<RootStackParamList, 'Listing'>
 
 const Stack = createStackNavigator<RootStackParamList>();
 
@@ -20,6 +22,7 @@ function StackRouter() {
         <Stack.Navigator screenOptions={{
           headerShown: false,
         }}>
+          <Stack.Screen name="Listing" component={ProductList} />
           <Stack.Screen name="Register" component={Register} />
         </Stack.Navigator>
       );
