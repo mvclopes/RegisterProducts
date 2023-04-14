@@ -1,9 +1,11 @@
+import { useNavigation } from "@react-navigation/native";
 import { Formik } from "formik";
 import React from "react";
 import { Button, StyleSheet, Text, View } from "react-native";
 import * as Yup from 'yup';
 import CustomTextInput from "../../components/CustomTextInput";
 import { ProductDatabaseHelper } from "../../db/productdbhelper";
+import { RegisterNavigationProps } from "../../routes";
 
 const initialValues = {
     productName: '',
@@ -21,16 +23,19 @@ interface RegisterProps {
 }
 
 export default function Register({isUpdatingProduct}: RegisterProps) {
+    const navigation = useNavigation<RegisterNavigationProps>();
+
     return(
         <Formik
             initialValues={{productName: initialValues.productName}}
             onSubmit={(values) => {
                 console.log(`values: ${JSON.stringify(values)}`);
                 ProductDatabaseHelper.saveProduct(values.productName);
+                navigation.replace("Listing");
             }}
             validationSchema={RegisterSchema}
         >
-            {({ handleChange, handleBlur, handleSubmit, values, errors }) => (
+            {({ handleChange, handleSubmit, values, errors }) => (
                 <View style={styles.container}>
                     <Text style={styles.title}>
                         {isUpdatingProduct === true ? "Atualizar produto": "Registrar produto" }
