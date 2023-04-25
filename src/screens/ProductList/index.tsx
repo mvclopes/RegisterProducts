@@ -29,10 +29,14 @@ export default function ProductList() {
     
     return(
         <>  
-            <View style={{flex:1}}>
+            <View style={styles.container}>
                 <FlatList
                     data={products}
-                    renderItem={ ({item}) => <Text>{item.name}</Text> }
+                    renderItem={ ({item}) =>
+                    <View style={styles.containerFlatList}>
+                        <Text style={styles.textFlatTitle}>{item.name}</Text> 
+                    </View>
+                    }
                     keyExtractor={ item => item.id }
                 />
             </View>
@@ -62,5 +66,21 @@ const styles = StyleSheet.create({
         fontSize: 48,
         color: '#fff',
         textAlign: 'center',
+    },
+    container: {
+        flex: 1,
+    },
+    containerFlatList: {
+        backgroundColor: 'blue',
+        height: 80,
+        margin: 10,
+        justifyContent: 'center',
+        alignItems: 'center',
+        borderRadius: 16,
+    },
+    textFlatTitle: {
+        color: 'white',
+        fontSize: 20,
+        fontWeight: 'bold',
     }
 });
